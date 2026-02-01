@@ -4,7 +4,6 @@
 **Program:** BSc Applied Computer Science  
 **Term:** January 2026  
 
----
 
 ## Overview
 
@@ -19,7 +18,7 @@ The design intentionally avoids parallelism in order to measure and analyze the
 overheads introduced by distributed execution, including parsing, network
 communication, remote execution, and result handling.
 
----
+
 
 ## Supported Hashing Algorithms
 
@@ -33,7 +32,6 @@ The system supports the following UNIX password hashing formats:
 | bcrypt           | `$2a$`, `$2b$`, `$2y$` |
 | yescrypt         | `$y$`         |
 
----
 
 ## System Architecture
 
@@ -55,7 +53,7 @@ The worker is responsible for:
 
 The worker is strictly single-threaded and does not spawn additional threads or processes.
 
----
+
 
 ## Password Search Parameters
 
@@ -66,7 +64,7 @@ All experiments use:
 
 No partitioning or parallel execution is performed.
 
----
+
 
 ## Communication Model
 
@@ -77,7 +75,6 @@ No partitioning or parallel execution is performed.
 Job messages include the target hash, search parameters, and dispatch timestamp.
 Result messages include cracking outcomes and worker-side timestamps.
 
----
 
 ## Performance Measurement
 
@@ -94,7 +91,6 @@ The following metrics are recorded:
 Multiple trials are executed for each hashing algorithm and summarized using
 basic statistics.
 
----
 
 ## Implementation Notes
 
@@ -104,10 +100,25 @@ basic statistics.
   - `crypt-r` for yescrypt support (required due to removal of `crypt` in Python 3.13)
 - All password cracking is performed sequentially on the worker
 
----
 
 ## Usage
 
 ### Controller
 ```bash
 python controller.py -f shadow.txt -u <username> -p <port>
+### Controller
+
+
+## Dependencies
+
+The project requires Python 3.13 and the following packages:
+
+- passlib
+- bcrypt (version 4.3.0)
+- crypt-r
+
+Dependencies can be installed using:
+
+```bash
+pip install -r requirements.txt
+
